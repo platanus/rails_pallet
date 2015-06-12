@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.1"
   s.add_dependency "paperclip", "~> 4.2"
+  s.add_dependency "responders", "~> 2.1.0"
+  s.add_dependency "active_model_serializers", "~> 0.9.3"
 
   s.add_development_dependency "rspec-rails", "~> 3.2.1"
   s.add_development_dependency "pry-rails", "~> 0.3.3"
@@ -28,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "guard-rspec", "~> 4.5.0"
   s.add_development_dependency "annotate", "~> 2.6.6"
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "recursive-open-struct"
 end

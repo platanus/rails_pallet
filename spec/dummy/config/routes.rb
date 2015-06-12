@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount PaperclipUpload::Engine => "/paperclip_upload"
+  mount PaperclipUpload::Engine => "/"
 end

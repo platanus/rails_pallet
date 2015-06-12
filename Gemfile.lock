@@ -2,8 +2,10 @@ PATH
   remote: .
   specs:
     paperclip_upload (0.0.1)
+      active_model_serializers (~> 0.9.3)
       paperclip (~> 4.2)
       rails (~> 4.2.1)
+      responders (~> 2.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -27,6 +29,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.1)
+    active_model_serializers (0.9.3)
+      activemodel (>= 3.2)
     activejob (4.2.1)
       activesupport (= 4.2.1)
       globalid (>= 0.3.0)
@@ -144,6 +148,9 @@ GEM
     rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    recursive-open-struct (0.6.4)
+    responders (2.1.0)
+      railties (>= 4.2.0, < 5)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -193,6 +200,7 @@ DEPENDENCIES
   guard-rspec (~> 4.5.0)
   paperclip_upload!
   pry-rails (~> 0.3.3)
+  recursive-open-struct
   rspec-rails (~> 3.2.1)
   shoulda-matchers (~> 2.8.0)
   sqlite3

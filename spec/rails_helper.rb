@@ -6,6 +6,7 @@ require 'spec_helper'
 require 'factory_girl_rails'
 require 'shoulda-matchers'
 require 'paperclip/matchers'
+require 'recursive_open_struct'
 
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 Dir[File.join(ENGINE_RAILS_ROOT, "spec/support/**/*.rb")].each {|f| require f }
@@ -19,6 +20,7 @@ RSpec.configure do |config|
   config.render_views
   config.include FactoryGirl::Syntax::Methods
   config.include Paperclip::Shoulda::Matchers
+  config.include ControllerHelpers, type: :controller
 
   FactoryGirl::SyntaxRunner.send(:include, RSpec::Mocks::ExampleMethods)
 end
