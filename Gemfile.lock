@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     paperclip_upload (0.0.1)
+      paperclip (~> 4.2)
       rails (~> 4.2.1)
 
 GEM
@@ -46,6 +47,10 @@ GEM
     builder (3.2.2)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.7)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -94,6 +99,11 @@ GEM
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    paperclip (4.2.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
