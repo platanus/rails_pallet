@@ -43,6 +43,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    annotate (2.6.8)
+      activerecord (>= 3.2, <= 4.3)
+      rake (~> 10.4)
     arel (6.0.0)
     builder (3.2.2)
     celluloid (0.16.0)
@@ -184,6 +187,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate (~> 2.6.6)
   factory_girl_rails (~> 4.5.0)
   guard (~> 2.12.5)
   guard-rspec (~> 4.5.0)
