@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "shoulda-matchers", "~> 2.8.0"
   s.add_development_dependency "guard", "~> 2.12.5"
   s.add_development_dependency "guard-rspec", "~> 4.5.0"
-
+  s.add_development_dependency "annotate", "~> 2.6.6"
   s.add_development_dependency "sqlite3"
 end
