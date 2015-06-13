@@ -13,6 +13,7 @@
 
 class Promotion < ActiveRecord::Base
   has_attached_upload :photo, path: ':rails_root/tmp/promotions/:id/:filename'
+  allow_encoded_file_for :photo
 
   do_not_validate_attachment_file_type :photo
 end
