@@ -15,7 +15,7 @@ describe PaperclipUpload::UploadsController, type: :controller do
 
   describe "POST 'create'" do
     context "sending file attachment" do
-      let(:file) { fixture_file_upload(Rails.root.join('spec', 'assets', 'bukowski.jpg'), 'image/png') }
+      let(:file) { fixture_file_upload(Rails.root.join('spec', 'assets', 'bukowski.jpg')) }
 
       it "returns 201" do
         post :create, file: file, format: :json
