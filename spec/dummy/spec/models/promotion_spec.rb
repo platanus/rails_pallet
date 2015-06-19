@@ -17,15 +17,15 @@ RSpec.describe Promotion, type: :model do
       expect(promotion.upload).to eq("upload")
     end
 
-    it "has upload_id accessor" do
-      promotion.upload_id = "upload_id"
-      expect(promotion.upload_id).to eq("upload_id")
+    it "has upload_identifier accessor" do
+      promotion.upload_identifier = "upload_identifier"
+      expect(promotion.upload_identifier).to eq("upload_identifier")
     end
 
     context "saving promotion" do
       context "with invalid upload" do
-        it "raise error passing an invalid upload_id" do
-          promotion.upload_id = "invalid upload id"
+        it "raise error passing an invalid upload_identifier" do
+          promotion.upload_identifier = "invalid upload identifier"
           expect { promotion.save }.to raise_error(ActiveRecord::RecordNotFound)
         end
 
@@ -51,8 +51,8 @@ RSpec.describe Promotion, type: :model do
           saves_with_upload { |promo| promotion.upload = upload }
         end
 
-        it "saves photo using upload_id" do
-          saves_with_upload { |promo| promotion.upload_id = upload.id }
+        it "saves photo using upload_identifier" do
+          saves_with_upload { |promo| promotion.upload_identifier = upload.identifier }
         end
       end
     end

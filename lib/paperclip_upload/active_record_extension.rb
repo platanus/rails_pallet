@@ -4,11 +4,14 @@ module PaperclipUpload
 
     class_methods do
       def has_attached_upload(_paperclip_attr_name, _options = {})
-        attr_accessor :upload_id
+        attr_accessor :upload_identifier
         attr_accessor :upload
 
         before_validation do
-          self.upload = PaperclipUpload::Upload.find(self.upload_id) if self.upload_id
+          if self.upload_identifier
+            decoded_id = PaperclipUpload::Upload.identifier_to_id(self.upload_identifier)
+            self.upload = PaperclipUpload::Upload.find(decoded_id)
+          end
 
           if self.upload
             if !self.upload.is_a? PaperclipUpload::Upload

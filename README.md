@@ -38,11 +38,11 @@ end
 
 ## Usage
 
-### Using `upload_id`
+### Using `upload_identifier`
 
 **First**: you need to save an upload instance.
 The engine creates the `POST /uploads` endpoint to achieve this.
-After perform a `POST` to `/uploads` with a `file` param, you will get this response: `{ upload: { id: 1 } }`
+After perform a `POST` to `/uploads` with a `file` param, you will get this response: `{ upload: { identifier: 1 } }`
 
 > Also, you can build your own endpoint to create new uploads. You will need to perform `PaperclipUpload::Upload.create(file: params[:file])` inside your controller action.
 
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   private
 
   def permitted_params
-    params.require(:user).permit(:upload_id)
+    params.require(:user).permit(:upload_identifier)
   end
 end
 ```
@@ -70,7 +70,7 @@ You can do something like this:
 class UsersController < ApplicationController
   def create
     @user = User.new
-    @user.upload = PaperclipUpload.find(params[:upload_id])
+    @user.upload = PaperclipUpload::Upload.create(file: params[:file])
     @user.save!
     respond_with @user
   end
@@ -111,6 +111,7 @@ end
 You can change the engine configuration from `your_app/config/initializers/paperclip_upload.rb`
 
 * `additional_upload_endpoints`: by default, you have the `/uploads` endpoint to create new upload resources. You can pass additional endpoints like this: `config.additional_upload_endpoints = ["/api/uploads", "/attachments"]`.
+* `hash_salt`: The upload module uses a salt string to generate an unique hash for each instance. A salt string can be defined here to replace the default and increase the module's security.
 
 ## Contributing
 

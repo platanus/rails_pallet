@@ -1,3 +1,3 @@
 class PaperclipUpload::UploadSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :identifier
 end
