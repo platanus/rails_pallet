@@ -14,7 +14,6 @@ module PaperclipUpload
   def draw_additional_upload_endpoints(_ctx)
     return if !self.additional_upload_endpoints || additional_upload_endpoints.count.zero?
     self.additional_upload_endpoints.each do |endpoint|
-      _ctx.get "#{endpoint}/:id" => "paperclip_upload/uploads#show"
       _ctx.post "#{endpoint}" => "paperclip_upload/uploads#create"
     end
   end
