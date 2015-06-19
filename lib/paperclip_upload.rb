@@ -1,5 +1,6 @@
 require "paperclip"
 require "responders"
+require 'hashids'
 require "active_model_serializers"
 require "paperclip_upload/active_record_extension"
 require "paperclip_upload/engine"

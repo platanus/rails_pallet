@@ -8,8 +8,7 @@ class PaperclipUpload::InstallGenerator < Rails::Generators::Base
   def mount_routes
     line = "Rails.application.routes.draw do"
     gsub_file "config/routes.rb", /(#{Regexp.escape(line)})/mi do |match|
-      "#{match}\n  mount PaperclipUpload::Engine => '/'\n
-      PaperclipUpload.draw_additional_upload_endpoints(self)\n"
+      "#{match}\n  mount PaperclipUpload::Engine => '/'\n  PaperclipUpload.draw_additional_upload_endpoints(self)\n"
     end
   end
 

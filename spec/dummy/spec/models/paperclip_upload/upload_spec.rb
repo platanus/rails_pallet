@@ -14,9 +14,7 @@ RSpec.describe PaperclipUpload::Upload, type: :model do
 
   describe "#identifier" do
     it "returns hash" do
-      hashids = Hashids.new(PaperclipUpload.hash_salt)
-      hash = upload.identifier
-      expect(hashids.decode(hash).first).to eq(upload.id)
+      expect(PaperclipUpload::Upload.hashid.decode(upload.identifier).first).to eq(upload.id)
     end
 
     it "raises error with blank id" do

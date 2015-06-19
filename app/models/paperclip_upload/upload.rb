@@ -13,15 +13,26 @@
 
 module PaperclipUpload
   class Upload < ActiveRecord::Base
+    IDENTIFIER_LENGTH = 8
+
     has_attached_file :file, path: ':rails_root/tmp/uploads/:id/:filename'
 
     do_not_validate_attachment_file_type :file
     validates_attachment_presence :file
 
-    def id_to_hash
+    def identifier
       raise "valid with saved instance only" if self.id.blank?
-      hashids = Hashids.new(PaperclipUpload.hash_salt)
-      hashids.encode(self.id)
+      self.class.hashid.encode(self.id)
+    end
+
+    def self.identifier_to_id(_identifier)
+      self.hashid.decode(_identifier).first
+    end
+
+    private
+
+    def self.hashid
+      Hashids.new(PaperclipUpload.hash_salt, IDENTIFIER_LENGTH)
     end
   end
 end
