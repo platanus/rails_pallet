@@ -106,6 +106,12 @@ class UsersController < ApplicationController
 end
 ```
 
+### Configuration
+
+You can change the engine configuration from `your_app/config/initializers/paperclip_upload.rb`
+
+* `additional_upload_endpoints`: by default, you have the `/uploads` endpoint to create new upload resources. You can pass additional endpoints like this: `config.additional_upload_endpoints = ["/api/uploads", "/attachments"]`.
+
 ## Contributing
 
 1. Fork it
