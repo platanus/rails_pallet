@@ -12,15 +12,15 @@ RSpec.describe PaperclipUpload::Upload, type: :model do
     it { should validate_attachment_presence(:file) }
   end
 
-  describe "#id_to_hash" do
+  describe "#identifier" do
     it "returns hash" do
       hashids = Hashids.new(PaperclipUpload.hash_salt)
-      hash = upload.id_to_hash
+      hash = upload.identifier
       expect(hashids.decode(hash).first).to eq(upload.id)
     end
 
     it "raises error with blank id" do
-      expect { PaperclipUpload::Upload.new.id_to_hash }.to(
+      expect { PaperclipUpload::Upload.new.identifier }.to(
         raise_error("valid with saved instance only"))
     end
   end
