@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 4.2.1"
+  s.add_dependency "hashids"
   s.add_dependency "paperclip", "~> 4.2"
   s.add_dependency "responders", "~> 2.1.0"
   s.add_dependency "active_model_serializers", "~> 0.9.3"

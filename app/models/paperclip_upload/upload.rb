@@ -17,5 +17,11 @@ module PaperclipUpload
 
     do_not_validate_attachment_file_type :file
     validates_attachment_presence :file
+
+    def id_to_hash
+      raise "valid with saved instance only" if self.id.blank?
+      hashids = Hashids.new(PaperclipUpload.hash_salt)
+      hashids.encode(self.id)
+    end
   end
 end
