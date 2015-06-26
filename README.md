@@ -145,11 +145,10 @@ and your routes...
 post "api/uploads", to: "api/uploads#create", defaults: { format: :json }
 ```
 
-### Configuration
+## Configuration
 
 You can change the engine configuration from `your_app/config/initializers/paperclip_upload.rb`
 
-* `additional_upload_endpoints`: by default, you have the `/uploads` endpoint to create new upload resources. You can pass additional endpoints like this: `config.additional_upload_endpoints = ["/api/uploads", "/attachments"]`.
 * `hash_salt`: The upload module uses a salt string to generate an unique hash for each instance. A salt string can be defined here to replace the default and increase the module's security.
 
 ## Contributing
