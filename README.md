@@ -106,6 +106,45 @@ class UsersController < ApplicationController
 end
 ```
 
+### Creating your own `UploadsController`
+
+You can generate your own `UploadsController` if for example:
+
+* your controllers don't inherit from the `ApplicationController`
+* you want to change the default route for `UploadsController`. (Also you can map the default controller with another route in your `routes.rb`)
+* you want to add extra logic to the default `UploadsController`
+
+Running...
+
+```shell
+$ rails generate paperclip_upload:upload_controller api/uploads api/base
+```
+
+You will get in `your_app/app/controllers/api/uploads_controller.rb`
+
+```ruby
+class Api::UploadController < Api::BaseController
+  self.responder = PaperclipUploadResponder
+  respond_to :json
+
+  def create
+    respond_with PaperclipUpload::Upload.create(permitted_params), status: :created
+  end
+
+  private
+
+  def permitted_params
+    params.permit(:file)
+  end
+end
+```
+
+and your routes...
+
+```ruby
+post "api/uploads", to: "api/uploads#create", defaults: { format: :json }
+```
+
 ### Configuration
 
 You can change the engine configuration from `your_app/config/initializers/paperclip_upload.rb`
