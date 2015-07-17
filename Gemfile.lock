@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paperclip_upload (0.1.0)
+    paperclip_upload (1.0.0)
       active_model_serializers (~> 0.9.3)
       hashids
       paperclip (~> 4.2)
@@ -182,7 +182,7 @@ GEM
     slop (3.6.0)
     sprockets (3.2.0)
       rack (~> 1.0)
-    sprockets-rails (2.3.1)
+    sprockets-rails (2.3.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
