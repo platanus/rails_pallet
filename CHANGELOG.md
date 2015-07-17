@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Added
+
+* Allow multiple paperclip attributes on same host model to work with uploads.
+
 ## v1.0.0
 
 ### Changed

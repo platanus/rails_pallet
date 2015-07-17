@@ -4,22 +4,24 @@ module PaperclipUpload
 
     class_methods do
       def has_attached_upload(_paperclip_attr_name, _options = {})
-        attr_accessor :upload_identifier
-        attr_accessor :upload
+        upload_identifier_attr_name = "#{_paperclip_attr_name}_upload_identifier"
+        upload_attr_name = "#{_paperclip_attr_name}_upload"
+        attr_accessor upload_identifier_attr_name, upload_attr_name
 
         before_validation do
-          if self.upload_identifier
-            decoded_id = PaperclipUpload::Upload.identifier_to_id(self.upload_identifier)
-            self.upload = PaperclipUpload::Upload.find(decoded_id)
+          upload_identifier = self.send(upload_identifier_attr_name)
+
+          if upload_identifier
+            decoded_id = PaperclipUpload::Upload.identifier_to_id(upload_identifier)
+            self.send("#{upload_attr_name}=", PaperclipUpload::Upload.find(decoded_id))
           end
 
-          if self.upload
-            if !self.upload.is_a? PaperclipUpload::Upload
-              raise "invalid PaperclipUpload::Upload instance"
-            end
+          upload_object = self.send(upload_attr_name)
 
-            self.send("#{_paperclip_attr_name}=", self.upload.file)
-            self.upload.destroy
+          if upload_object
+            raise "invalid PaperclipUpload::Upload instance" if !upload_object.is_a?(PaperclipUpload::Upload)
+            self.send("#{_paperclip_attr_name}=", upload_object.file)
+            upload_object.destroy
           end
         end
 

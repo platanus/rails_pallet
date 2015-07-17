@@ -53,10 +53,12 @@ class UsersController < ApplicationController
   private
 
   def permitted_params
-    params.require(:user).permit(:upload_identifier)
+    params.require(:user).permit(:avatar_upload_identifier)
   end
 end
 ```
+
+> Notice that you need to pass to the host model (`User` on this example): **[host_model_paperclip_attribute]+_upload_identifier** sufix as you can see in `permitted_params` method.
 
 ### Using `upload`
 
@@ -66,12 +68,14 @@ You can do something like this:
 class UsersController < ApplicationController
   def create
     @user = User.new
-    @user.upload = PaperclipUpload::Upload.create(file: params[:file])
+    @user.avatar_upload = PaperclipUpload::Upload.create(file: params[:file])
     @user.save!
     respond_with @user
   end
 end
 ```
+
+> In this case the structure is: **[host_model_paperclip_attribute]+_upload** sufix.
 
 ### Base64 Encoding
 

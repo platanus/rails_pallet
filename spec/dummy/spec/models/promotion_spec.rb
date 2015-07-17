@@ -13,24 +13,24 @@ RSpec.describe Promotion, type: :model do
     end
 
     it "has upload accessors" do
-      promotion.upload = "upload"
-      expect(promotion.upload).to eq("upload")
+      promotion.photo_upload = "upload"
+      expect(promotion.photo_upload).to eq("upload")
     end
 
-    it "has upload_identifier accessor" do
-      promotion.upload_identifier = "upload_identifier"
-      expect(promotion.upload_identifier).to eq("upload_identifier")
+    it "has photo_upload_identifier accessor" do
+      promotion.photo_upload_identifier = "photo_upload_identifier"
+      expect(promotion.photo_upload_identifier).to eq("photo_upload_identifier")
     end
 
     context "saving promotion" do
       context "with invalid upload" do
-        it "raise error passing an invalid upload_identifier" do
-          promotion.upload_identifier = "invalid upload identifier"
+        it "raise error passing an invalid photo_upload_identifier" do
+          promotion.photo_upload_identifier = "invalid upload identifier"
           expect { promotion.save }.to raise_error(ActiveRecord::RecordNotFound)
         end
 
         it "raise error passing an invalid upload" do
-          promotion.upload = "invalid upload"
+          promotion.photo_upload = "invalid upload"
           expect { promotion.save }.to raise_error("invalid PaperclipUpload::Upload instance")
         end
       end
@@ -48,11 +48,11 @@ RSpec.describe Promotion, type: :model do
         end
 
         it "saves photo using upload instance" do
-          saves_with_upload { |promo| promotion.upload = upload }
+          saves_with_upload { |promo| promotion.photo_upload = upload }
         end
 
-        it "saves photo using upload_identifier" do
-          saves_with_upload { |promo| promotion.upload_identifier = upload.identifier }
+        it "saves photo using photo_upload_identifier" do
+          saves_with_upload { |promo| promotion.photo_upload_identifier = upload.identifier }
         end
       end
     end
