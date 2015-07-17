@@ -53,12 +53,10 @@ class UsersController < ApplicationController
   private
 
   def permitted_params
-    params.require(:user).permit(:avatar_upload_identifier)
+    params.require(:user).permit(:upload_identifier)
   end
 end
 ```
-
-> Notice that you need to pass to the host model (`User` on this example): **[host_model_paperclip_attribute]+_upload_identifier** sufix as you can see in `permitted_params` method.
 
 ### Using `upload`
 
@@ -68,14 +66,57 @@ You can do something like this:
 class UsersController < ApplicationController
   def create
     @user = User.new
-    @user.avatar_upload = PaperclipUpload::Upload.create(file: params[:file])
+    @user.upload = PaperclipUpload::Upload.create(file: params[:file])
     @user.save!
     respond_with @user
   end
 end
 ```
 
-> In this case the structure is: **[host_model_paperclip_attribute]+_upload** sufix.
+### Using prefix
+
+You will need a way to match an upload resource with a specific attribute if you have two or more paperclip attributes on the same model. To do this, you can pass the option `upload: { use_prefix: true }` on `has_attached_upload` like this:
+
+```ruby
+class User < ActiveRecord::Base
+  has_attached_upload :avatar, path: ':rails_root/tmp/users/:id/:filename', upload: { use_prefix: true }
+  has_attached_upload :document, path: ':rails_root/tmp/users/:id/:filename', upload: { use_prefix: true }
+  has_attached_upload :photo, path: ':rails_root/tmp/users/:id/:filename'
+end
+```
+
+Then, in your controller...
+
+```ruby
+class UsersController < ApplicationController
+  def create
+    respond_with User.create(permitted_params)
+  end
+
+  private
+
+  def permitted_params
+    params.require(:user).permit(:avatar_upload_identifier, :document_upload_identifier, :upload_identifier)
+  end
+end
+```
+
+or using the upload object...
+
+```ruby
+class UsersController < ApplicationController
+  def create
+    @user = User.new
+    @user.avatar_upload = PaperclipUpload::Upload.create(file: params[:avatar])
+    @user.document_upload = PaperclipUpload::Upload.create(file: params[:document])
+    @user.upload = PaperclipUpload::Upload.create(file: params[:photo])
+    @user.save!
+    respond_with @user
+  end
+end
+```
+
+> If you execute `has_attached_upload` method two or more times in same model with `upload: { use_prefix: false }` (false is the default value), you will be obligated to use the `upload: { use_prefix: true }` option. If you don't, an exception will be raised.
 
 ### Base64 Encoding
 
@@ -152,6 +193,8 @@ You can change the engine configuration from `your_app/config/initializers/paper
 #### Configuration Options:
 
 * `hash_salt`: The upload module uses a salt string to generate an unique hash for each instance. A salt string can be defined here to replace the default and increase the module's security.
+
+* `use_prefix`: false by default. If true, you will need to pass `[host_model_paperclip_attribute_name]_+upload|upload_identifier` instead just `upload` or `upload_identifier` to the host model to use an upload resource.
 
 ## Contributing
 

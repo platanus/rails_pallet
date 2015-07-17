@@ -4,15 +4,17 @@ module PaperclipUpload
 
     class_methods do
       def has_attached_upload(_paperclip_attr_name, _options = {})
-        upload_identifier_attr_name = "#{_paperclip_attr_name}_upload_identifier"
-        upload_attr_name = "#{_paperclip_attr_name}_upload"
+        load_upload_options(_options)
+        upload_identifier_attr_name = build_upload_attr_name(_paperclip_attr_name, "identifier")
+        upload_attr_name = build_upload_attr_name(_paperclip_attr_name)
+
         attr_accessor upload_identifier_attr_name, upload_attr_name
 
         before_validation do
-          upload_identifier = self.send(upload_identifier_attr_name)
+          identifier = self.send(upload_identifier_attr_name)
 
-          if upload_identifier
-            decoded_id = PaperclipUpload::Upload.identifier_to_id(upload_identifier)
+          if identifier
+            decoded_id = PaperclipUpload::Upload.identifier_to_id(identifier)
             self.send("#{upload_attr_name}=", PaperclipUpload::Upload.find(decoded_id))
           end
 
@@ -38,6 +40,23 @@ module PaperclipUpload
             self.send("#{_paperclip_attr_name}=", data)
           end if encoded_attr
         end
+      end
+
+      private
+
+      def build_upload_attr_name(_paperclip_attr_name, _sufix = nil)
+        prefix = !!upload_options.fetch(:use_prefix, PaperclipUpload.use_prefix) ? _paperclip_attr_name : nil
+        upload_attr_name = [prefix, ["upload", _sufix].compact.join("_")].compact.join("_")
+        raise "you are trying to redefine #{upload_attr_name} attribute" if self.method_defined?(upload_attr_name)
+        upload_attr_name
+      end
+
+      def load_upload_options(_options = {})
+        @upload_options = _options.fetch(:upload, {})
+      end
+
+      def upload_options
+        @upload_options ||= {}
       end
     end
   end
