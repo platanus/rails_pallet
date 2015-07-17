@@ -11,7 +11,6 @@ class PaperclipUpload::InstallGenerator < Rails::Generators::Base
       <<-HERE.gsub(/^ {9}/, '')
          #{match}
            mount PaperclipUpload::Engine => '/'
-           PaperclipUpload.draw_additional_upload_endpoints(self)
          HERE
     end
   end

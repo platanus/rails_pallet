@@ -17,14 +17,12 @@ Run the installer:
 
 ```shell
 $ rails generate paperclip_upload:install
-$ rake db:migrate
 ```
 
 Then, add an attachment, as usually do, using paperclip.
 
 ```shell
 $ rails generate paperclip user avatar
-$ rake db:migrate
 ```
 
 Inside `User` model, you need to execute `has_attached_upload` instead the `has_attached_file` paperclip's method:
@@ -42,11 +40,9 @@ end
 
 **First**: you need to save an upload instance.
 The engine creates the `POST /uploads` endpoint to achieve this.
-After perform a `POST` to `/uploads` with a `file` param, you will get this response: `{ upload: { identifier: 1 } }`
+After perform a `POST` to `/uploads` with a `file` param, you will get this response: `{ upload: { identifier: 'a5zr1XNZ' } }`
 
-> Also, you can build your own endpoint to create new uploads. You will need to perform `PaperclipUpload::Upload.create(file: params[:file])` inside your controller action.
-
-**Second**: supposing you have your `UsersController`, you need to perform a `POST /users` to create a new user passing the upload id:
+**Second**: supposing you have an `UsersController`, you need to perform a `POST /users` to create a new user passing the upload identifier you get previously.
 
 ```ruby
 class UsersController < ApplicationController
@@ -106,11 +102,51 @@ class UsersController < ApplicationController
 end
 ```
 
-### Configuration
+### Creating your own `UploadsController`
+
+You can generate your own `UploadsController` if for example:
+
+* your controllers don't inherit from the `ApplicationController`
+* you want to change the default route for `UploadsController`. (Also you can map the default controller with another route in your `routes.rb`)
+* you want to add extra logic to the default `UploadsController`
+
+Running...
+
+```shell
+$ rails generate paperclip_upload:upload_controller api/uploads api/base
+```
+
+You will get in `your_app/app/controllers/api/uploads_controller.rb`
+
+```ruby
+class Api::UploadController < Api::BaseController
+  self.responder = PaperclipUploadResponder
+  respond_to :json
+
+  def create
+    respond_with PaperclipUpload::Upload.create(permitted_params), status: :created
+  end
+
+  private
+
+  def permitted_params
+    params.permit(:file)
+  end
+end
+```
+
+and the route...
+
+```ruby
+post "api/uploads", to: "api/uploads#create", defaults: { format: :json }
+```
+
+## Configuration
 
 You can change the engine configuration from `your_app/config/initializers/paperclip_upload.rb`
 
-* `additional_upload_endpoints`: by default, you have the `/uploads` endpoint to create new upload resources. You can pass additional endpoints like this: `config.additional_upload_endpoints = ["/api/uploads", "/attachments"]`.
+#### Configuration Options:
+
 * `hash_salt`: The upload module uses a salt string to generate an unique hash for each instance. A salt string can be defined here to replace the default and increase the module's security.
 
 ## Contributing
@@ -123,12 +159,12 @@ You can change the engine configuration from `your_app/config/initializers/paper
 
 ## Credits
 
-Thank you [contributors](https://github.com/platanus/punto_pagos_rails/graphs/contributors)!
+Thank you [contributors](https://github.com/platanus/paperclip_upload/graphs/contributors)!
 
 <img src="http://platan.us/gravatar_with_text.png" alt="Platanus" width="250"/>
 
-punto_pagos_rails is maintained by [platanus](http://platan.us).
+paperclip_upload is maintained by [platanus](http://platan.us).
 
 ## License
 
-Guides is © 2014 platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
+Guides is © 2015 platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
