@@ -1,6 +1,4 @@
-## v0.1.0
-
-* Initial release
+## Unreleased
 
 ## v1.0.0
 
@@ -15,3 +13,7 @@
 ### Removed
 
 * Remove `additional_upload_endpoints` configuration option in favor of uploads controller generator
+
+## v0.1.0
+
+* Initial release
