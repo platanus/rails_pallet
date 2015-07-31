@@ -22,4 +22,24 @@ RSpec.describe PaperclipUpload::Upload, type: :model do
         raise_error("valid with saved instance only"))
     end
   end
+
+  describe "#file_extension" do
+    it "returns nil with undefined file" do
+      expect(PaperclipUpload::Upload.new.file_extension).to be_nil
+    end
+
+    it "returns valid extension" do
+      expect(upload.file_extension).to eq('jpg')
+    end
+  end
+
+  describe "#file_name" do
+    it "returns nil with undefined file" do
+      expect(PaperclipUpload::Upload.new.file_name).to be_nil
+    end
+
+    it "returns file name without extension" do
+      expect(upload.file_name).to eq("bukowski")
+    end
+  end
 end

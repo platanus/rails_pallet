@@ -23,6 +23,7 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
       <<-HERE.gsub(/^ {9}/, '')
          #{match}
            post "#{name}", to: "#{name}#create", defaults: { format: :json }
+           get "#{name}/:id/download", to: "#{name}#download", defaults: { format: :json }
          HERE
     end
   end

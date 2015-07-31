@@ -1,4 +1,4 @@
-class UploadController < ApplicationController
+class Api::UploadsController < Api::BaseController
   self.responder = PaperclipUploadResponder
   respond_to :json
 

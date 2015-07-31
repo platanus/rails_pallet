@@ -40,7 +40,18 @@ end
 
 **First**: you need to save an upload instance.
 The engine creates the `POST /uploads` endpoint to achieve this.
-After perform a `POST` to `/uploads` with a `file` param, you will get this response: `{ upload: { identifier: 'a5zr1XNZ' } }`
+After perform a `POST` to `/uploads` with a `file` param, you will get this response:
+
+```json
+{
+    "upload": {
+        "id": 43,
+        "identifier": "rW6q2QZM",
+        "file_extension": "jpg",
+        "file_name": "90033441_BLO_20150607"
+    }
+}
+```
 
 **Second**: supposing you have an `UsersController`, you need to perform a `POST /users` to create a new user passing the upload identifier you get previously.
 
@@ -164,7 +175,7 @@ $ rails generate paperclip_upload:upload_controller api/uploads api/base
 You will get in `your_app/app/controllers/api/uploads_controller.rb`
 
 ```ruby
-class Api::UploadController < Api::BaseController
+class Api::UploadsController < Api::BaseController
   self.responder = PaperclipUploadResponder
   respond_to :json
 
@@ -172,18 +183,27 @@ class Api::UploadController < Api::BaseController
     respond_with PaperclipUpload::Upload.create(permitted_params), status: :created
   end
 
+  def download
+    send_file(upload.file.path, type: upload.file_content_type, disposition: 'inline')
+  end
+
   private
 
   def permitted_params
     params.permit(:file)
   end
+
+  def upload
+    @upload ||= PaperclipUpload::Upload.find(params[:id])
+  end
 end
 ```
 
-and the route...
+and the routes...
 
 ```ruby
 post "api/uploads", to: "api/uploads#create", defaults: { format: :json }
+get "api/uploads/:id/download", to: "api/uploads#download", defaults: { format: :json }
 ```
 
 ## Configuration

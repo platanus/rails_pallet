@@ -29,6 +29,16 @@ module PaperclipUpload
       self.hashid.decode(_identifier).first
     end
 
+    def file_extension
+      return unless self.file.exists?
+      File.extname(self.file.original_filename).split('.').last
+    end
+
+    def file_name
+      return unless self.file.exists?
+      self.file_file_name.gsub(".#{file_extension}", "")
+    end
+
     private
 
     def self.hashid

@@ -1,3 +1,9 @@
+## Unreleased
+
+### Added
+
+* Add file name, extension and file url to json response
+
 ## v1.1.0
 
 ### Added
