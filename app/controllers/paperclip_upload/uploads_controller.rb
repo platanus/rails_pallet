@@ -4,7 +4,9 @@ module PaperclipUpload
     respond_to :json
 
     def create
-      respond_with PaperclipUpload::Upload.create(permitted_params), status: :created
+      new_upload = PaperclipUpload::Upload.create(permitted_params)
+      set_download_url(new_upload)
+      respond_with new_upload, status: :created
     end
 
     def download
@@ -19,6 +21,13 @@ module PaperclipUpload
 
     def upload
       @upload ||= PaperclipUpload::Upload.find(params[:id])
+    end
+
+    private
+
+    def set_download_url(_upload)
+      _upload.singleton_class.send(:attr_accessor, :download_url)
+      _upload.download_url = download_upload_url(_upload)
     end
   end
 end
