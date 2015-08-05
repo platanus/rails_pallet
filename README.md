@@ -48,7 +48,7 @@ After perform a `POST` to `/uploads` with a `file` param, you will get this resp
         "id": 43,
         "identifier": "rW6q2QZM",
         "file_extension": "jpg",
-        "file_name": "90033441_BLO_20150607"
+        "file_name": "90033441_BLO_20150607",
         "download_url": "http://my-server.com/uploads/43/download"
     }
 }

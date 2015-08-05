@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paperclip_upload (1.1.0)
+    paperclip_upload (1.2.0)
       active_model_serializers (~> 0.9.3)
       hashids
       paperclip (~> 4.2)

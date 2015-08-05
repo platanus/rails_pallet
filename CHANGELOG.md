@@ -1,8 +1,8 @@
-## Unreleased
+## v1.2.0
 
 ### Added
 
-* Add file name, extension and file url to json response
+* Add file name, extension and download url to json response.
 
 ## v1.1.0
 
