@@ -49,6 +49,7 @@ After perform a `POST` to `/uploads` with a `file` param, you will get this resp
         "identifier": "rW6q2QZM",
         "file_extension": "jpg",
         "file_name": "90033441_BLO_20150607"
+        "download_url": "http://my-server.com/uploads/43/download"
     }
 }
 ```
@@ -180,7 +181,9 @@ class Api::UploadsController < Api::BaseController
   respond_to :json
 
   def create
-    respond_with PaperclipUpload::Upload.create(permitted_params), status: :created
+    new_upload = PaperclipUpload::Upload.create(permitted_params)
+    set_download_url(new_upload)
+    respond_with new_upload, status: :created
   end
 
   def download
@@ -196,6 +199,13 @@ class Api::UploadsController < Api::BaseController
   def upload
     @upload ||= PaperclipUpload::Upload.find(params[:id])
   end
+
+  private
+
+  def set_download_url(_upload)
+    _upload.singleton_class.send(:attr_accessor, :download_url)
+    _upload.download_url = api_uploads_download_url(_upload)
+  end
 end
 ```
 
@@ -203,7 +213,7 @@ and the routes...
 
 ```ruby
 post "api/uploads", to: "api/uploads#create", defaults: { format: :json }
-get "api/uploads/:id/download", to: "api/uploads#download", defaults: { format: :json }
+get "api/uploads/:id/download", to: "api/uploads#download", defaults: { format: :json }, as: :api_uploads_download
 ```
 
 ## Configuration
