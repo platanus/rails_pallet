@@ -45,11 +45,10 @@ After perform a `POST` to `/uploads` with a `file` param, you will get this resp
 ```json
 {
     "upload": {
-        "id": 43,
         "identifier": "rW6q2QZM",
         "file_extension": "jpg",
         "file_name": "90033441_BLO_20150607",
-        "download_url": "http://my-server.com/uploads/43/download"
+        "download_url": "http://my-server.com/uploads/rW6q2QZM/download"
     }
 }
 ```
@@ -197,14 +196,14 @@ class Api::UploadsController < Api::BaseController
   end
 
   def upload
-    @upload ||= PaperclipUpload::Upload.find(params[:id])
+    @upload ||= PaperclipUpload::Upload.find_by_identifier(params[:identifier])
   end
 
   private
 
   def set_download_url(_upload)
     _upload.singleton_class.send(:attr_accessor, :download_url)
-    _upload.download_url = api_uploads_download_url(_upload)
+    _upload.download_url = download_api_upload_url(identifier: _upload.identifier)
   end
 end
 ```
@@ -213,7 +212,7 @@ and the routes...
 
 ```ruby
 post "api/uploads", to: "api/uploads#create", defaults: { format: :json }
-get "api/uploads/:id/download", to: "api/uploads#download", defaults: { format: :json }, as: :api_uploads_download
+get "api/uploads/:identifier/download", to: "api/uploads#download", defaults: { format: :json }, as: :download_api_upload
 ```
 
 ## Configuration
