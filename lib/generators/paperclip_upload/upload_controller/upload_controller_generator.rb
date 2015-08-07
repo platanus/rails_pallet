@@ -3,21 +3,21 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
   argument :base_controller, type: :string, :default => "application"
 
   def generate_controller
-    generate "controller #{name}"
+    generate "controller #{resource_path}"
   end
 
   def replace_controller_with_template
-    copy_file "controller.rb", "app/controllers/#{name}_controller.rb", force: true
+    copy_file "controller.rb", controller_path, force: true
   end
 
   def customize_controller
     line = "class UploadController < ApplicationController"
-    gsub_file "app/controllers/#{name}_controller.rb", /(#{Regexp.escape(line)})/mi do |match|
-      "class #{name.classify.pluralize}Controller < #{base_controller.classify}Controller"
+    gsub_file controller_path, /(#{Regexp.escape(line)})/mi do |match|
+      "class #{controller_class} < #{base_controller_class}"
     end
 
     link = "\"download_link\""
-    gsub_file "app/controllers/#{name}_controller.rb", /(#{Regexp.escape(link)})/mi do |match|
+    gsub_file controller_path, /(#{Regexp.escape(link)})/mi do |match|
       "#{download_route_method}_url(identifier: _upload.identifier)"
     end
   end
@@ -27,8 +27,8 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
     gsub_file "config/routes.rb", /(#{Regexp.escape(line)})/mi do |match|
       <<-HERE.gsub(/^ {9}/, '')
          #{match}
-           post "#{name}", to: "#{name}#create", defaults: { format: :json }
-           get "#{name}/:identifier/download", to: "#{name}#download", defaults: { format: :json }, as: :#{download_route_method}
+           post "#{resource_path}", to: "#{resource_path}#create", defaults: { format: :json }
+           get "#{resource_path}/:identifier/download", to: "#{resource_path}#download", defaults: { format: :json }, as: :#{download_route_method}
          HERE
     end
   end
@@ -36,6 +36,22 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
   private
 
   def download_route_method
-    "#{name.gsub('/','_')}_download"
+    "download_#{resource_path.singularize.gsub('/','_')}"
+  end
+
+  def controller_class
+    "#{name.classify.pluralize}Controller"
+  end
+
+  def base_controller_class
+    "#{base_controller.classify}Controller"
+  end
+
+  def controller_path
+    "app/controllers/#{resource_path}_controller.rb"
+  end
+
+  def resource_path
+    name.tableize
   end
 end

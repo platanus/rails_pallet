@@ -26,6 +26,6 @@ class Api::UploadsController < Api::BaseController
 
   def set_download_url(_upload)
     _upload.singleton_class.send(:attr_accessor, :download_url)
-    _upload.download_url = api_uploads_download_url(identifier: _upload.identifier)
+    _upload.download_url = download_api_upload_url(identifier: _upload.identifier)
   end
 end
