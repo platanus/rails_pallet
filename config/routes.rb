@@ -1,5 +1,4 @@
 PaperclipUpload::Engine.routes.draw do
-  resources :uploads, only: [:create], defaults: { format: :json } do
-    get 'download', on: :member
-  end
+  resources :uploads, only: [:create], defaults: { format: :json }
+  get '/uploads/:identifier/download', to: 'uploads#download', as: :download
 end

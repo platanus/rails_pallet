@@ -18,7 +18,7 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
 
     link = "\"download_link\""
     gsub_file "app/controllers/#{name}_controller.rb", /(#{Regexp.escape(link)})/mi do |match|
-      "#{download_route_method}_url(_upload)"
+      "#{download_route_method}_url(identifier: _upload.identifier)"
     end
   end
 
@@ -28,7 +28,7 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
       <<-HERE.gsub(/^ {9}/, '')
          #{match}
            post "#{name}", to: "#{name}#create", defaults: { format: :json }
-           get "#{name}/:id/download", to: "#{name}#download", defaults: { format: :json }, as: :#{download_route_method}
+           get "#{name}/:identifier/download", to: "#{name}#download", defaults: { format: :json }, as: :#{download_route_method}
          HERE
     end
   end

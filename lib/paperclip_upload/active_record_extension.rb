@@ -14,8 +14,8 @@ module PaperclipUpload
           identifier = self.send(upload_identifier_attr_name)
 
           if identifier
-            decoded_id = PaperclipUpload::Upload.identifier_to_id(identifier)
-            self.send("#{upload_attr_name}=", PaperclipUpload::Upload.find(decoded_id))
+            found_upload = PaperclipUpload::Upload.find_by_identifier(identifier)
+            self.send("#{upload_attr_name}=", found_upload)
           end
 
           upload_object = self.send(upload_attr_name)

@@ -42,4 +42,15 @@ RSpec.describe PaperclipUpload::Upload, type: :model do
       expect(upload.file_name).to eq("bukowski")
     end
   end
+
+  describe "#find_by_identifier" do
+    it "raises error when identifier does not match any upload object" do
+      expect { PaperclipUpload::Upload.find_by_identifier('xxx') }.to(
+        raise_error(ActiveRecord::RecordNotFound))
+    end
+
+    it "returns upload object when identifier matches an upload object" do
+      expect(PaperclipUpload::Upload.find_by_identifier(upload.identifier).id).to eq(upload.id)
+    end
+  end
 end

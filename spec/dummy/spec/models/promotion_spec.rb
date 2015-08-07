@@ -29,7 +29,7 @@ RSpec.describe Promotion, type: :model do
         expect(promotion).to respond_to(:prefixed_file_upload_identifier)
       end
 
-      it "raises error trying to redefine upload_accessor", focus: true do
+      it "raises error trying to redefine upload_accessor" do
         expect { Promotion.has_attached_upload(:photo) }.to raise_error(
           "you are trying to redefine upload_identifier attribute")
         expect { Promotion.has_attached_upload(:prefixed_file, upload: { use_prefix: true }) }.to raise_error(

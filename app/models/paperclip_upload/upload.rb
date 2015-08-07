@@ -25,10 +25,6 @@ module PaperclipUpload
       self.class.hashid.encode(self.id)
     end
 
-    def self.identifier_to_id(_identifier)
-      self.hashid.decode(_identifier).first
-    end
-
     def file_extension
       return unless self.file.exists?
       File.extname(self.file.original_filename).split('.').last
@@ -39,10 +35,19 @@ module PaperclipUpload
       self.file_file_name.gsub(".#{file_extension}", "")
     end
 
+    def self.find_by_identifier(_identifier)
+      decoded_id = identifier_to_id(_identifier)
+      PaperclipUpload::Upload.find(decoded_id)
+    end
+
     private
 
     def self.hashid
       Hashids.new(PaperclipUpload.hash_salt, IDENTIFIER_LENGTH)
+    end
+
+    def self.identifier_to_id(_identifier)
+      self.hashid.decode(_identifier).first
     end
   end
 end

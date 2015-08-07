@@ -10,7 +10,6 @@ describe PaperclipUpload::UploadsController, type: :controller do
       it "returns 201" do
         post :create, file: file, format: :json
         expect(response).to be_success
-        expect(json_response.upload.id).not_to be_nil
         expect(json_response.upload.identifier).not_to be_nil
         expect(json_response.upload.file_name).to eq('bukowski')
         expect(json_response.upload.file_extension).to eq('jpg')
@@ -23,7 +22,7 @@ describe PaperclipUpload::UploadsController, type: :controller do
       let!(:upload) { create(:upload) }
 
       it "returns 200" do
-        get :download, id: upload.id, format: :json
+        get :download, identifier: upload.identifier, format: :json
         expect(response).to be_success
       end
     end

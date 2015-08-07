@@ -19,7 +19,7 @@ class UploadController < ApplicationController
   end
 
   def upload
-    @upload ||= PaperclipUpload::Upload.find(params[:id])
+    @upload ||= PaperclipUpload::Upload.find_by_identifier(params[:identifier])
   end
 
   private

@@ -20,14 +20,14 @@ module PaperclipUpload
     end
 
     def upload
-      @upload ||= PaperclipUpload::Upload.find(params[:id])
+      @upload ||= PaperclipUpload::Upload.find_by_identifier(params[:identifier])
     end
 
     private
 
     def set_download_url(_upload)
       _upload.singleton_class.send(:attr_accessor, :download_url)
-      _upload.download_url = download_upload_url(_upload)
+      _upload.download_url = download_url(identifier: _upload.identifier)
     end
   end
 end
