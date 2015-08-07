@@ -3,7 +3,7 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
   argument :base_controller, type: :string, :default => "application"
 
   def generate_controller
-    generate "controller #{resource_path}"
+    generate "controller #{resource_path} --no-helper --no-assets --no-view-specs --no-controller-specs"
   end
 
   def replace_controller_with_template
