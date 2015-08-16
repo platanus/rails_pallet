@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = PaperclipUpload::VERSION
   s.authors     = ["Leandro Segovia"]
   s.email       = ["ldlsegovia@gmail.com"]
-  s.homepage    = ""
-  s.summary     = ""
-  s.description = ""
+  s.homepage    = "https://github.com/platanus/paperclip_upload"
+  s.summary     = "Rails engine to save paperclip attachments asynchronously"
+  s.description = "This gem allows you: 1) perform multiple POST requests to create multiple files. 2) relate those files with a model using identifiers instead the files themselves"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
