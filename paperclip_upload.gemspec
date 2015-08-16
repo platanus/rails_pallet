@@ -14,8 +14,7 @@ Gem::Specification.new do |s|
   s.description = "This gem allows you: 1) perform multiple POST requests to create multiple files. 2) relate those files with a model using identifiers instead the files themselves"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["spec/**/*"]
+  s.files = `git ls-files`.split($/).reject { |fn| fn.start_with? "spec" }
 
   s.add_runtime_dependency 'rails', '~> 4.2', '>= 4.2.1'
   s.add_runtime_dependency 'hashids', '~> 1.0', '>= 1.0.2'
