@@ -1,6 +1,6 @@
 class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
   source_root File.expand_path('../templates', __FILE__)
-  argument :base_controller, type: :string, :default => "application"
+  argument :base_controller, type: :string, default: "application"
 
   def generate_controller
     generate "controller #{resource_path} --no-helper --no-assets --no-view-specs --no-controller-specs"
@@ -12,13 +12,8 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
 
   def customize_controller
     line = "class UploadController < ApplicationController"
-    gsub_file controller_path, /(#{Regexp.escape(line)})/mi do |match|
+    gsub_file controller_path, /(#{Regexp.escape(line)})/mi do
       "class #{controller_class} < #{base_controller_class}"
-    end
-
-    link = "\"download_link\""
-    gsub_file controller_path, /(#{Regexp.escape(link)})/mi do |match|
-      "#{download_route_method}_url(identifier: _upload.identifier)"
     end
   end
 
@@ -28,16 +23,11 @@ class PaperclipUpload::UploadControllerGenerator < Rails::Generators::NamedBase
       <<-HERE.gsub(/^ {9}/, '')
          #{match}
            post "#{resource_path}", to: "#{resource_path}#create", defaults: { format: :json }
-           get "#{resource_path}/:identifier/download", to: "#{resource_path}#download", defaults: { format: :json }, as: :#{download_route_method}
          HERE
     end
   end
 
   private
-
-  def download_route_method
-    "download_#{resource_path.singularize.gsub('/','_')}"
-  end
 
   def controller_class
     "#{name.classify.pluralize}Controller"

@@ -16,15 +16,4 @@ describe PaperclipUpload::UploadsController, type: :controller do
       end
     end
   end
-
-  describe "GET 'download'" do
-    context "with defined upload" do
-      let!(:upload) { create(:upload) }
-
-      it "returns 200" do
-        get :download, identifier: upload.identifier, format: :json
-        expect(response).to be_success
-      end
-    end
-  end
 end

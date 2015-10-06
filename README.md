@@ -181,12 +181,7 @@ class Api::UploadsController < Api::BaseController
 
   def create
     new_upload = PaperclipUpload::Upload.create(permitted_params)
-    set_download_url(new_upload)
     respond_with new_upload, status: :created
-  end
-
-  def download
-    send_file(upload.file.path, type: upload.file_content_type, disposition: 'inline')
   end
 
   private
@@ -198,21 +193,13 @@ class Api::UploadsController < Api::BaseController
   def upload
     @upload ||= PaperclipUpload::Upload.find_by_identifier(params[:identifier])
   end
-
-  private
-
-  def set_download_url(_upload)
-    _upload.singleton_class.send(:attr_accessor, :download_url)
-    _upload.download_url = download_api_upload_url(identifier: _upload.identifier)
-  end
 end
 ```
 
-and the routes...
+and the route...
 
 ```ruby
 post "api/uploads", to: "api/uploads#create", defaults: { format: :json }
-get "api/uploads/:identifier/download", to: "api/uploads#download", defaults: { format: :json }, as: :download_api_upload
 ```
 
 ## Configuration

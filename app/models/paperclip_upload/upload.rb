@@ -15,24 +15,26 @@ module PaperclipUpload
   class Upload < ActiveRecord::Base
     IDENTIFIER_LENGTH = 8
 
-    has_attached_file :file, path: ':rails_root/tmp/uploads/:id/:filename'
+    has_attached_file :file,
+      path: ':rails_root/public/uploads/:identifier/:filename',
+      url: "/uploads/:identifier/:basename.:extension"
 
     do_not_validate_attachment_file_type :file
     validates_attachment_presence :file
 
     def identifier
-      raise "valid with saved instance only" if self.id.blank?
-      self.class.hashid.encode(self.id)
+      raise "valid with saved instance only" if id.blank?
+      self.class.hashid.encode(id)
     end
 
     def file_extension
-      return unless self.file.exists?
-      File.extname(self.file.original_filename).split('.').last
+      return unless file.exists?
+      File.extname(file.original_filename).split('.').last
     end
 
     def file_name
-      return unless self.file.exists?
-      self.file_file_name.gsub(".#{file_extension}", "")
+      return unless file.exists?
+      file_file_name.gsub(".#{file_extension}", "")
     end
 
     def self.find_by_identifier(_identifier)
@@ -40,14 +42,20 @@ module PaperclipUpload
       PaperclipUpload::Upload.find(decoded_id)
     end
 
-    private
+    def download_url
+      file.url
+    end
 
     def self.hashid
       Hashids.new(PaperclipUpload.hash_salt, IDENTIFIER_LENGTH)
     end
 
     def self.identifier_to_id(_identifier)
-      self.hashid.decode(_identifier).first
+      hashid.decode(_identifier).first
+    end
+
+    Paperclip.interpolates(:identifier) do |attachment, _|
+      attachment.instance.identifier
     end
   end
 end
