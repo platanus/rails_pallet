@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v1.2.3
+
+##### Fixed
+* Removed `uploads#download` endpoint. Use always `file.url` instead of `file.path`. `file.path` does not work with S3 config.
+
 ### v1.2.2
 
 ##### Fixed
