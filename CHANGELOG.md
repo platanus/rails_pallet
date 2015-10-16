@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### v1.2.4
+
+##### Fixed
+* Allow `encoded_[file]` accessor to work with base64 headers.
+
 ### v1.2.3
 
 ##### Fixed
