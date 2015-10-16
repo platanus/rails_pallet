@@ -7,7 +7,11 @@ FactoryGirl.define do
     end
 
     factory :promotion_with_encoded_photo do
-      encoded_photo { Base64.encode64(File.open(Rails.root.join('spec', 'assets', 'bukowski.jpg')).read) }
+      encoded_photo do
+        header = "data:image/png;base64,"
+        file = Rails.root.join('spec', 'assets', 'bukowski.jpg')
+        header + Base64.encode64(File.open(file).read)
+      end
     end
   end
 end

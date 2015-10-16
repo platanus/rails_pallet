@@ -11,18 +11,21 @@ module PaperclipUpload
         attr_accessor upload_identifier_attr_name, upload_attr_name
 
         before_validation do
-          identifier = self.send(upload_identifier_attr_name)
+          identifier = send(upload_identifier_attr_name)
 
           if identifier
             found_upload = PaperclipUpload::Upload.find_by_identifier(identifier)
-            self.send("#{upload_attr_name}=", found_upload)
+            send("#{upload_attr_name}=", found_upload)
           end
 
-          upload_object = self.send(upload_attr_name)
+          upload_object = send(upload_attr_name)
 
           if upload_object
-            raise "invalid PaperclipUpload::Upload instance" if !upload_object.is_a?(PaperclipUpload::Upload)
-            self.send("#{_paperclip_attr_name}=", upload_object.file)
+            if !upload_object.is_a?(PaperclipUpload::Upload)
+              raise "invalid PaperclipUpload::Upload instance"
+            end
+
+            send("#{_paperclip_attr_name}=", upload_object.file)
             upload_object.destroy
           end
         end
@@ -35,19 +38,29 @@ module PaperclipUpload
         attr_accessor encoded_attr_name
 
         before_validation do
-          encoded_attr = self.send(encoded_attr_name)
-          StringIO.open(Base64.decode64(encoded_attr)) do |data|
-            self.send("#{_paperclip_attr_name}=", data)
-          end if encoded_attr
+          encoded_attr = send(encoded_attr_name)
+          if encoded_attr
+            headerless_encoded_file = encoded_attr.split(",").last
+            StringIO.open(Base64.decode64(headerless_encoded_file)) do |data|
+              send("#{_paperclip_attr_name}=", data)
+            end
+          end
         end
       end
 
       private
 
       def build_upload_attr_name(_paperclip_attr_name, _sufix = nil)
-        prefix = !!upload_options.fetch(:use_prefix, PaperclipUpload.use_prefix) ? _paperclip_attr_name : nil
+        if !!upload_options.fetch(:use_prefix, PaperclipUpload.use_prefix)
+          prefix = _paperclip_attr_name
+        end
+
         upload_attr_name = [prefix, ["upload", _sufix].compact.join("_")].compact.join("_")
-        raise "you are trying to redefine #{upload_attr_name} attribute" if self.method_defined?(upload_attr_name)
+
+        if self.method_defined?(upload_attr_name)
+          raise "you are trying to redefine #{upload_attr_name} attribute"
+        end
+
         upload_attr_name
       end
 
