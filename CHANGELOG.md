@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Unreleased
 
+##### Fixed
+
+* `skip_before_action :verify_authenticity_token` in uploads controller
+
 ##### Changed
 
 * gem name from paperclip_upload to rails_pallet
