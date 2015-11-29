@@ -1,4 +1,4 @@
-# Paperclip Upload
+# Rails Pallet
 
 Rails engine to save [paperclip](https://github.com/thoughtbot/paperclip) attachments asynchronously. For example, if you have an `User` model with `avatar` paperclip attribute, you will:
 
@@ -10,13 +10,13 @@ Rails engine to save [paperclip](https://github.com/thoughtbot/paperclip) attach
 Add to your Gemfile...
 
 ```ruby
-gem 'paperclip_upload'
+gem 'rails_pallet'
 ```
 
 Run the installer:
 
 ```shell
-$ rails generate paperclip_upload:install
+$ rails generate rails_pallet:install
 ```
 
 Then, add an attachment, as usually do, using paperclip.
@@ -77,7 +77,7 @@ You can do something like this:
 class UsersController < ApplicationController
   def create
     @user = User.new
-    @user.upload = PaperclipUpload::Upload.create(file: params[:file])
+    @user.upload = RailsPallet::Upload.create(file: params[:file])
     @user.save!
     respond_with @user
   end
@@ -118,9 +118,9 @@ or using the upload object...
 class UsersController < ApplicationController
   def create
     @user = User.new
-    @user.avatar_upload = PaperclipUpload::Upload.create(file: params[:avatar])
-    @user.document_upload = PaperclipUpload::Upload.create(file: params[:document])
-    @user.upload = PaperclipUpload::Upload.create(file: params[:photo])
+    @user.avatar_upload = RailsPallet::Upload.create(file: params[:avatar])
+    @user.document_upload = RailsPallet::Upload.create(file: params[:document])
+    @user.upload = RailsPallet::Upload.create(file: params[:photo])
     @user.save!
     respond_with @user
   end
@@ -169,18 +169,18 @@ You can generate your own `UploadsController` if for example:
 Running...
 
 ```shell
-$ rails generate paperclip_upload:upload_controller api/uploads api/base
+$ rails generate rails_pallet:upload_controller api/uploads api/base
 ```
 
 You will get in `your_app/app/controllers/api/uploads_controller.rb`
 
 ```ruby
 class Api::UploadsController < Api::BaseController
-  self.responder = PaperclipUploadResponder
+  self.responder = RailsPalletResponder
   respond_to :json
 
   def create
-    new_upload = PaperclipUpload::Upload.create(permitted_params)
+    new_upload = RailsPallet::Upload.create(permitted_params)
     respond_with new_upload, status: :created
   end
 
@@ -191,7 +191,7 @@ class Api::UploadsController < Api::BaseController
   end
 
   def upload
-    @upload ||= PaperclipUpload::Upload.find_by_identifier(params[:identifier])
+    @upload ||= RailsPallet::Upload.find_by_identifier(params[:identifier])
   end
 end
 ```
@@ -204,7 +204,7 @@ post "api/uploads", to: "api/uploads#create", defaults: { format: :json }
 
 ## Configuration
 
-You can change the engine configuration from `your_app/config/initializers/paperclip_upload.rb`
+You can change the engine configuration from `your_app/config/initializers/rails_pallet.rb`
 
 #### Configuration Options:
 
@@ -222,11 +222,11 @@ You can change the engine configuration from `your_app/config/initializers/paper
 
 ## Credits
 
-Thank you [contributors](https://github.com/platanus/paperclip_upload/graphs/contributors)!
+Thank you [contributors](https://github.com/platanus/rails_pallet/graphs/contributors)!
 
 <img src="http://platan.us/gravatar_with_text.png" alt="Platanus" width="250"/>
 
-paperclip_upload is maintained by [platanus](http://platan.us).
+rails_pallet is maintained by [platanus](http://platan.us).
 
 ## License
 

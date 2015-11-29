@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### Unreleased
+
+##### Fixed
+
+* `skip_before_action :verify_authenticity_token` in uploads controller
+
+##### Changed
+
+* gem name from paperclip_upload to rails_pallet
+
 ### v1.2.4
 
 ##### Fixed
@@ -10,16 +20,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### v1.2.3
 
 ##### Fixed
+
 * Removed `uploads#download` endpoint. Use always `file.url` instead of `file.path`. `file.path` does not work with S3 config.
 
 ### v1.2.2
 
 ##### Fixed
+
 * Removed tmp and spec files from gemspec definition.
 
 ### v1.2.1
 
-##### Change
+##### Changed
+
 * A little refactor to controllers generator.
 
 ##### Fixed

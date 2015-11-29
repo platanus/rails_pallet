@@ -13,15 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150717202131) do
 
-  create_table "paperclip_upload_uploads", force: :cascade do |t|
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-  end
-
   create_table "promotions", force: :cascade do |t|
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
@@ -41,6 +32,15 @@ ActiveRecord::Schema.define(version: 20150717202131) do
     t.string   "prefixed_file_content_type"
     t.integer  "prefixed_file_file_size"
     t.datetime "prefixed_file_updated_at"
+  end
+
+  create_table "rails_pallet_uploads", force: :cascade do |t|
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
 end

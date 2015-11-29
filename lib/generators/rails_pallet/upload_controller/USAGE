@@ -1,0 +1,8 @@
+Description:
+    Allows you to create a custom controller to handle uploads
+
+Example:
+    rails generate rails_pallet:upload_controller api/attachments api/base
+
+    This will create:
+        a controller inside app/controllers/api/attachments_controller.rb inheriting from the existent app/controllers/api/base_controller.rb
