@@ -1,3 +1,4 @@
+# This migration comes from rails_pallet (originally 20150612152417)
 class AddAttachmentFileToUploads < ActiveRecord::Migration
   def self.up
     change_table :rails_pallet_uploads do |t|

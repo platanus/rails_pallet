@@ -1,15 +1,15 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "paperclip_upload/version"
+require "rails_pallet/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "paperclip_upload"
-  s.version     = PaperclipUpload::VERSION
+  s.name        = "rails_pallet"
+  s.version     = RailsPallet::VERSION
   s.authors     = ["Leandro Segovia"]
   s.email       = ["ldlsegovia@gmail.com"]
-  s.homepage    = "https://github.com/platanus/paperclip_upload"
+  s.homepage    = "https://github.com/platanus/rails_pallet"
   s.summary     = "Rails engine to save paperclip attachments asynchronously"
   s.description = "This gem allows you: 1) perform multiple POST requests to create multiple files. 2) relate those files with a model using identifiers instead the files themselves"
   s.license     = "MIT"

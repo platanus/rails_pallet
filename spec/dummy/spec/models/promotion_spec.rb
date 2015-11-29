@@ -46,7 +46,7 @@ RSpec.describe Promotion, type: :model do
 
         it "raises error passing an invalid upload" do
           promotion.upload = "invalid upload"
-          expect { promotion.save }.to raise_error("invalid PaperclipUpload::Upload instance")
+          expect { promotion.save }.to raise_error("invalid RailsPallet::Upload instance")
         end
       end
 
@@ -58,7 +58,7 @@ RSpec.describe Promotion, type: :model do
           yield(promotion)
           expect(promotion.save).to be_truthy
           expect(promotion.send(_paperclip_attr).exists?).to be_truthy
-          expect { PaperclipUpload::Upload.find(upload.id) }.to(
+          expect { RailsPallet::Upload.find(upload.id) }.to(
             raise_error(ActiveRecord::RecordNotFound))
         end
 

@@ -1,4 +1,4 @@
-class Api::UploadsController < Api::BaseController
+class UploadController < ApplicationController
   self.responder = RailsPalletResponder
   respond_to :json
 

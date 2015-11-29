@@ -1,4 +1,4 @@
 class Api::BaseController < ActionController::Base
-  self.responder = PaperclipUploadResponder
+  self.responder = RailsPalletResponder
   respond_to :json
 end

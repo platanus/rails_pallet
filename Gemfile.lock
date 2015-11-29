@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paperclip_upload (1.2.4)
+    rails_pallet (1.2.4)
       active_model_serializers (~> 0.9.3)
       hashids (~> 1.0, >= 1.0.2)
       paperclip (~> 4.2, >= 4.2.0)
@@ -202,8 +202,8 @@ DEPENDENCIES
   factory_girl_rails (~> 4.5, >= 4.5.0)
   guard (~> 2.12, >= 2.12.5)
   guard-rspec (~> 4.5, >= 4.5.0)
-  paperclip_upload!
   pry-rails (~> 0.3.3)
+  rails_pallet!
   recursive-open-struct (~> 0.6.4)
   rspec-rails (~> 3.2, >= 3.2.1)
   shoulda-matchers (~> 2.8, >= 2.8.0)
