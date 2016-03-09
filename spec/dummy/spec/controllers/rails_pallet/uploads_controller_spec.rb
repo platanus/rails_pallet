@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RailsPallet::UploadsController, type: :controller do
+RSpec.describe RailsPallet::UploadsController, type: :controller do
   routes { RailsPallet::Engine.routes }
 
   describe "POST 'create'" do
