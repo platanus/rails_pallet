@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+  - 2.3.1
+before_install: gem install bundler -v 1.12.5
+script:
+  - RAILS_ENV=test bundle exec rake db:create db:migrate
+  - bundle exec rspec spec
+deploy:
+  provider: rubygems
+  api_key:
+    secure: UngRx+TCLLz1suYss76Lyb5TZGsEnLvOL+yVLe3YARiTsX11c2pOsLHHmmxJOPrbK62MQ9ZrHtaYiWWlwB9vyoXm3GBb9aYRXZBg/Ecwihojqtw+bxqISLFAI3twgJTxo0u599f/mAQohyVtxy9Na8efvcKYs4KOhsaZfaE5kt7tt3hEEA2xpz+JVKbFNob3EXkJLJtSzcNJX9JdJiSE/eZm4Ko44VPe5erfkKHTsh5Yo2ueOxX9eIAck0aXdahmcPmaAHygW79o5Fs7/UZGoW30pgXAgpjsBHJYyQ1CQ7gyvfcip217C5+/sis1PY5QbpMZw44a3IQFAC+Z3zuB/vp9USzVnaFrk6tiuIB3i9qkuIowZvNF9CEXaBQs2bYNKIdwqecYm5CPJ70V02uasD1aAnVwL6HV5h9fmN33Sk/n/y4yaLTC0qeBojMpUl5qNSH1rN2T1qQJ+yXWzRxtdd6rQu4rxfpUn3MfYybVBF4H8noeSComj58QoL/3Q1XR108Efw1v/FAKJanWvyWzZcW/vfPt4WUVdAYKfwUmCIDzzQIqIA6Rsxhm+qt9n04eakRofhwilQpNzhP0UVjl7xiOsqugMSuj9Vh83ARlPF+DAsm7ewcpXe5jKd9B8kNvNrcOCwbLxINmnrUxL/LgcmU3WZZ7wWqJdzB/66dA2Fk=
+  gem: rails_pallet
+  on:
+    tags: true
+    repo: platanus/rails_pallet

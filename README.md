@@ -1,4 +1,7 @@
 # Rails Pallet
+[![Gem Version](https://badge.fury.io/rb/rails_pallet.svg)](https://badge.fury.io/rb/rails_pallet)
+[![Build Status](https://travis-ci.org/platanus/rails_pallet.svg?branch=master)](https://travis-ci.org/platanus/rails_pallet)
+[![Coverage Status](https://coveralls.io/repos/github/platanus/rails_pallet/badge.svg)](https://coveralls.io/github/platanus/rails_pallet)
 
 Rails engine to save [paperclip](https://github.com/thoughtbot/paperclip) attachments asynchronously. For example, if you have an `User` model with `avatar` paperclip attribute, you will:
 
@@ -230,4 +233,4 @@ rails_pallet is maintained by [platanus](http://platan.us).
 
 ## License
 
-Guides is © 2015 platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
+Rails Pallet is © 2017 Platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
