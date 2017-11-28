@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'hashids', '~> 1.0', '>= 1.0.2'
   s.add_runtime_dependency 'paperclip', '~> 4.2', '>= 4.2.0'
   s.add_runtime_dependency 'responders', '~> 2.1', '>= 2.1.0'
-  s.add_dependency "active_model_serializers", "~> 0.9.3"
+  s.add_dependency "active_model_serializers", "~> 0.9"
 
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'rspec-rails', '~> 3.2', '>= 3.2.1'
