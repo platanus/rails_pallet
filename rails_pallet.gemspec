@@ -18,14 +18,14 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'rails', '~> 4.2', '>= 4.2.1'
   s.add_runtime_dependency 'hashids', '~> 1.0', '>= 1.0.2'
-  s.add_runtime_dependency 'paperclip', '~> 4.2', '>= 4.2.0'
+  s.add_runtime_dependency 'paperclip'
   s.add_runtime_dependency 'responders', '~> 2.1', '>= 2.1.0'
   s.add_dependency "active_model_serializers", "~> 0.9"
 
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'rspec-rails', '~> 3.2', '>= 3.2.1'
   s.add_development_dependency "pry-rails", "~> 0.3.3"
-  s.add_development_dependency 'factory_girl_rails', '~> 4.5', '>= 4.5.0'
+  s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'shoulda-matchers', '~> 2.8', '>= 2.8.0'
   s.add_development_dependency 'guard', '~> 2.12', '>= 2.12.5'
   s.add_development_dependency 'guard-rspec', '~> 4.5', '>= 4.5.0'

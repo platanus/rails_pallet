@@ -23,7 +23,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
 require 'spec_helper'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'shoulda-matchers'
 require 'paperclip/matchers'
 require 'recursive_open_struct'
@@ -38,9 +38,9 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.order = :random
   config.render_views
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Paperclip::Shoulda::Matchers
   config.include ControllerHelpers, type: :controller
 
-  FactoryGirl::SyntaxRunner.send(:include, RSpec::Mocks::ExampleMethods)
+  FactoryBot::SyntaxRunner.send(:include, RSpec::Mocks::ExampleMethods)
 end
