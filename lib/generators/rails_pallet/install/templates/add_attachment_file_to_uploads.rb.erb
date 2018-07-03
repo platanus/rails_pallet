@@ -1,0 +1,15 @@
+<%- if Rails.version.to_i > 4 -%>
+class AddAttachmentFileToUploads < ActiveRecord::Migration[<%= Rails.version.to_f %>]
+<%- else -%>
+class AddAttachmentFileToUploads < ActiveRecord::Migration
+<%- end -%>
+  def self.up
+    change_table :rails_pallet_uploads do |t|
+      t.attachment :file
+    end
+  end
+
+  def self.down
+    remove_attachment :rails_pallet_uploads, :file
+  end
+end
