@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717202131) do
+ActiveRecord::Schema.define(version: 20180703192406) do
 
   create_table "promotions", force: :cascade do |t|
     t.datetime "created_at",                     null: false

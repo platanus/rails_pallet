@@ -1,0 +1,11 @@
+<%- if Rails.version.to_i > 4 -%>
+class CreateRailsPalletUploads < ActiveRecord::Migration[<%= Rails.version.to_f %>]
+<%- else -%>
+class CreateRailsPalletUploads < ActiveRecord::Migration
+<%- end -%>
+  def change
+    create_table :rails_pallet_uploads do |t|
+      t.timestamps null: false
+    end
+  end
+end
