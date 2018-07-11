@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_pallet (2.3.0)
+    rails_pallet (2.3.1)
       active_model_serializers (~> 0.9)
       hashids (~> 1.0, >= 1.0.2)
       paperclip
