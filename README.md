@@ -1,3 +1,4 @@
+# DEPRECATED - no longer actively maintained
 # Rails Pallet
 [![Gem Version](https://badge.fury.io/rb/rails_pallet.svg)](https://badge.fury.io/rb/rails_pallet)
 [![Build Status](https://travis-ci.org/platanus/rails_pallet.svg?branch=master)](https://travis-ci.org/platanus/rails_pallet)
